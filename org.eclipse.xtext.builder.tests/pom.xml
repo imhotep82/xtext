@@ -4,26 +4,11 @@
 	<parent>
 		<groupId>org.eclipse.xtext</groupId>
 		<artifactId>org.eclipse.xtext.tycho.tests.parent</artifactId>
-		<version>2.35.0-SNAPSHOT</version>
+		<version>2.36.0-SNAPSHOT</version>
 		<relativePath>../org.eclipse.xtext.tycho.tests.parent</relativePath>
 	</parent>
 
 	<artifactId>org.eclipse.xtext.builder.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 
-	<!--
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<includes>
-						<include>**/standalone/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	-->
 </project>

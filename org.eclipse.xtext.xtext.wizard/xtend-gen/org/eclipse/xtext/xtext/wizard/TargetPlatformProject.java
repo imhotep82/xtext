@@ -8,10 +8,10 @@
  */
 package org.eclipse.xtext.xtext.wizard;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -112,7 +112,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
       boolean _isAtLeast = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA17);
       if (_isAtLeast) {
         _builder.append("\t\t\t");
-        _builder.append("<repository location=\"https://download.eclipse.org/releases/2024-06\"/>");
+        _builder.append("<repository location=\"https://download.eclipse.org/releases/2024-09\"/>");
         _builder.newLine();
       } else {
         _builder.append("\t\t\t");
@@ -185,7 +185,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<location includeAllPlatforms=\"false\" includeConfigurePhase=\"false\" includeMode=\"planner\" includeSource=\"true\" type=\"InstallableUnit\">");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"com.google.gson\" version=\"2.10.1\"/>");
+    _builder.append("<unit id=\"com.google.gson\" version=\"2.11.0\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("<unit id=\"com.google.inject\" version=\"7.0.0\"/>");
@@ -210,7 +210,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.newLine();
     {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals = Objects.equal(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
       if (_equals) {
         _builder.append("\t\t\t");
         _builder.append("<unit id=\"org.apiguardian.api\" version=\"0.0.0\"/>");
@@ -254,10 +254,10 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<unit id=\"org.objectweb.asm\" version=\"9.7.0\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"io.github.classgraph.classgraph\" version=\"4.8.168\"/>");
+    _builder.append("<unit id=\"io.github.classgraph.classgraph\" version=\"4.8.174\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<repository location=\"https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-06\"/>");
+    _builder.append("<repository location=\"https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09\"/>");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("</location>");

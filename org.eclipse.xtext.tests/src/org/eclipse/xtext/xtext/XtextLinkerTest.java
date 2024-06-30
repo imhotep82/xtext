@@ -8,6 +8,8 @@
  */
 package org.eclipse.xtext.xtext;
 
+import java.util.Objects;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -29,13 +31,12 @@ import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.XtextStandaloneSetup;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.tests.AbstractXtextTests;
+import org.eclipse.xtext.testing.AbstractXtextTests;
 import org.eclipse.xtext.util.LazyStringInputStream;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 
@@ -194,16 +195,16 @@ public class XtextLinkerTest extends AbstractXtextTests {
 		AbstractRule firstRule = Iterables.getFirst(grammar.getRules(), null);
 		AbstractRule idRule = GrammarUtil.findRuleForName(Iterables.getFirst(grammar.getUsedGrammars(), null), "ID");
 		Assert.assertTrue(IterableExtensions.forall(GrammarUtil.containedRuleCalls(firstRule),
-				(RuleCall it) -> Objects.equal(it.getRule(), idRule)));
+				(RuleCall it) -> Objects.equals(it.getRule(), idRule)));
 		AbstractRule secondRule = Iterables.getFirst(IterableExtensions.tail(grammar.getRules()), null);
 		AbstractRule stringRule = Iterables.getLast(grammar.getRules());
 		Assert.assertTrue(IterableExtensions.forall(GrammarUtil.containedRuleCalls(secondRule),
-				(RuleCall it) -> Objects.equal(it.getRule(), stringRule)));
+				(RuleCall it) -> Objects.equals(it.getRule(), stringRule)));
 		AbstractRule thirdRule = Iterables.getFirst(IterableExtensions.drop(grammar.getRules(), 2), null);
 		AbstractRule inheritedString = GrammarUtil.findRuleForName(Iterables.getFirst(grammar.getUsedGrammars(), null),
 				"STRING");
 		Assert.assertTrue(IterableExtensions.forall(GrammarUtil.containedRuleCalls(thirdRule),
-				(RuleCall it) -> Objects.equal(it.getRule(), inheritedString)));
+				(RuleCall it) -> Objects.equals(it.getRule(), inheritedString)));
 	}
 
 	@Test

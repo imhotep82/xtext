@@ -14,6 +14,7 @@ import static org.eclipse.xtext.util.Strings.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -109,7 +110,6 @@ import org.eclipse.xtext.xbase.ui.document.DocumentSourceAppender.Factory.Option
 import org.eclipse.xtext.xbase.ui.imports.OrganizeImportsHandler;
 import org.eclipse.xtext.xbase.ui.quickfix.XbaseQuickfixProvider;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -334,7 +334,7 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 		});
 	}
 
-	@Fix(IssueCodes.MISSING_SYNCHRONIZED)
+	@Fix(org.eclipse.xtext.xbase.validation.IssueCodes.MISSING_SYNCHRONIZED)
 	public void fixMissingSynchronizedKeyword(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Mark operation as synchronized", "Marks this operation as synchronized", "fix_indent.gif", new ISemanticModification() {
 			@Override
@@ -363,7 +363,7 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 		}
 	}
 
-	@Fix(IssueCodes.MISSING_CONSTRUCTOR)
+	@Fix(org.eclipse.xtext.xbase.validation.IssueCodes.MISSING_CONSTRUCTOR)
 	public void addConstuctorFromSuper(final Issue issue, IssueResolutionAcceptor acceptor) {
 		if (issue.getData() != null) {
 			for(int i=0; i<issue.getData().length; i+=2) {
@@ -396,7 +396,7 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 		}
 	}
 	
-	@Fix(IssueCodes.CLASS_MUST_BE_ABSTRACT)
+	@Fix(org.eclipse.xtext.xbase.validation.IssueCodes.CLASS_MUST_BE_ABSTRACT)
 	public void implementAbstractMethods(final Issue issue, IssueResolutionAcceptor acceptor) {
 		doOverrideMethods(issue, acceptor, "Add unimplemented methods");
 		acceptor.accept(issue, "Make class abstract", "Make class abstract", "fix_indent.gif",
@@ -408,12 +408,12 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 		});
 	}
 
-	@Fix(IssueCodes.ANONYMOUS_CLASS_MISSING_MEMBERS)
+	@Fix(org.eclipse.xtext.xbase.validation.IssueCodes.ANONYMOUS_CLASS_MISSING_MEMBERS)
 	public void implementAbstractMethodsInAnonymousClass(final Issue issue, IssueResolutionAcceptor acceptor) {
 		doOverrideMethods(issue, acceptor, "Add unimplemented methods");
 	}
 	
-	@Fix(IssueCodes.CONFLICTING_DEFAULT_METHODS)
+	@Fix(org.eclipse.xtext.xbase.validation.IssueCodes.CONFLICTING_DEFAULT_METHODS)
 	public void overrideDefaultMethod(final Issue issue, IssueResolutionAcceptor acceptor) {
 		if (issue.getData() != null) {
 			for (String data : issue.getData()) {
@@ -623,7 +623,7 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 								if (obj instanceof JvmDeclaredType) {
 									JvmDeclaredType type = (JvmDeclaredType) obj;
 									String typePackage = type.getPackageName();
-									if (Objects.equal(typePackage, oldPackageName) || typePackage != null && typePackage.startsWith(oldPackageName + ".")) {
+									if (Objects.equals(typePackage, oldPackageName) || typePackage != null && typePackage.startsWith(oldPackageName + ".")) {
 										type.internalSetIdentifier(null);
 										type.setPackageName(newPackageName);
 									}

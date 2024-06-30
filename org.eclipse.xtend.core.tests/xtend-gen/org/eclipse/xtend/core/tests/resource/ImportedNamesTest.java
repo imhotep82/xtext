@@ -8,12 +8,11 @@
  */
 package org.eclipse.xtend.core.tests.resource;
 
-import com.google.common.base.Objects;
 import com.google.inject.Inject;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import org.eclipse.xtend.core.tests.AbstractXtendTestCase;
 import org.eclipse.xtend.core.xtend.XtendFile;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -188,7 +187,7 @@ public class ImportedNamesTest extends AbstractXtendTestCase {
       final Function1<QualifiedName, Boolean> _function = (QualifiedName it) -> {
         String _string = it.toString();
         String _lowerCase = "types.StaticOuterClass$StaticMiddleClass$StaticInnerClass".toLowerCase();
-        return Boolean.valueOf(Objects.equal(_string, _lowerCase));
+        return Boolean.valueOf(Objects.equals(_string, _lowerCase));
       };
       Assert.assertTrue(("" + importedNames), IterableExtensions.<QualifiedName>exists(importedNames, _function));
     } catch (Throwable _e) {
@@ -216,7 +215,7 @@ public class ImportedNamesTest extends AbstractXtendTestCase {
       final Function1<QualifiedName, Boolean> _function = (QualifiedName it) -> {
         String _string = it.toString();
         String _lowerCase = "types.StaticOuterClass$Unknown".toLowerCase();
-        return Boolean.valueOf(Objects.equal(_string, _lowerCase));
+        return Boolean.valueOf(Objects.equals(_string, _lowerCase));
       };
       Assert.assertTrue(("" + importedNames), IterableExtensions.<QualifiedName>exists(importedNames, _function));
     } catch (Throwable _e) {
@@ -244,7 +243,7 @@ public class ImportedNamesTest extends AbstractXtendTestCase {
       final Function1<QualifiedName, Boolean> _function = (QualifiedName it) -> {
         String _string = it.toString();
         String _lowerCase = "types.StaticOuterClass$StaticMiddleClass$Unknown".toLowerCase();
-        return Boolean.valueOf(Objects.equal(_string, _lowerCase));
+        return Boolean.valueOf(Objects.equals(_string, _lowerCase));
       };
       Assert.assertTrue(("" + importedNames), IterableExtensions.<QualifiedName>exists(importedNames, _function));
     } catch (Throwable _e) {
@@ -267,7 +266,7 @@ public class ImportedNamesTest extends AbstractXtendTestCase {
       _builder.append("class C {");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("val list = new java.util.ArrayList<Map.Entry>");
+      _builder.append("val list = new testdata.stubs.StubbedArrayList<Map.Entry>");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("val entry = new SimpleEntry(null, null)");
@@ -280,31 +279,53 @@ public class ImportedNamesTest extends AbstractXtendTestCase {
       final XtendFile file = this.file(_builder.toString(), true);
       final IResourceDescription description = this.resourceDescriptionManager.getResourceDescription(file.eResource());
       final Iterable<QualifiedName> importedNames = description.getImportedNames();
-      Assert.assertEquals(
-        IterableExtensions.join(Arrays.<String>asList(
-          "java.io.serializable", 
-          "java.lang.cloneable", 
-          "java.lang.iterable", 
-          "java.lang.java$util$arraylist", 
-          "java.lang.object", 
-          "java.util.abstractcollection", 
-          "java.util.abstractlist", 
-          "java.util.abstractmap", 
-          "java.util.abstractmap.java$util$arraylist", 
-          "java.util.abstractmap.simpleentry", 
-          "java.util.abstractmap$java$util$arraylist", 
-          "java.util.abstractmap$simpleentry", 
-          "java.util.arraylist", 
-          "java.util.collection", 
-          "java.util.list", 
-          "java.util.map", 
-          "java.util.map$entry", 
-          "java.util.randomaccess", 
-          "java.util$abstractmap$java$util$arraylist", 
-          "java$util$abstractmap$java$util$arraylist", 
-          "my.pack.c", 
-          "my.pack.java$util$arraylist", 
-          "org.eclipse.xtext.xbase.lib.java$util$arraylist"), "\n"), 
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("java.io.serializable");
+      _builder_1.newLine();
+      _builder_1.append("java.lang.cloneable");
+      _builder_1.newLine();
+      _builder_1.append("java.lang.iterable");
+      _builder_1.newLine();
+      _builder_1.append("java.lang.object");
+      _builder_1.newLine();
+      _builder_1.append("java.lang.testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractcollection");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractmap");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractmap.simpleentry");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractmap.testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractmap$simpleentry");
+      _builder_1.newLine();
+      _builder_1.append("java.util.abstractmap$testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("java.util.collection");
+      _builder_1.newLine();
+      _builder_1.append("java.util.map");
+      _builder_1.newLine();
+      _builder_1.append("java.util.map$entry");
+      _builder_1.newLine();
+      _builder_1.append("java.util.randomaccess");
+      _builder_1.newLine();
+      _builder_1.append("java.util$abstractmap$testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("java$util$abstractmap$testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("my.pack.c");
+      _builder_1.newLine();
+      _builder_1.append("my.pack.testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("org.eclipse.xtext.xbase.lib.testdata$stubs$stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("testdata.stubs.stubbedabstractlist");
+      _builder_1.newLine();
+      _builder_1.append("testdata.stubs.stubbedarraylist");
+      _builder_1.newLine();
+      _builder_1.append("testdata.stubs.stubbedlist");
+      Assert.assertEquals(_builder_1.toString().replace("\r", ""), 
         IterableExtensions.join(IterableExtensions.<QualifiedName>sortWith(IterableExtensions.<QualifiedName>toList(importedNames), Comparator.<QualifiedName>naturalOrder()), "\n"));
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

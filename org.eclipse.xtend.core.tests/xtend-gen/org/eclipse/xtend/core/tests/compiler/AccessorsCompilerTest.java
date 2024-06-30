@@ -8,12 +8,11 @@
  */
 package org.eclipse.xtend.core.tests.compiler;
 
-import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import org.eclipse.xtend.core.validation.IssueCodes;
+import java.util.Objects;
 import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
@@ -26,6 +25,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.testing.CompilationTestHelper;
+import org.eclipse.xtext.xbase.validation.IssueCodes;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -171,7 +171,7 @@ public class AccessorsCompilerTest extends AbstractXtendCompilerTest {
       _builder.append("}");
       _builder.newLine();
       final String source = _builder.toString();
-      this._validationTestHelper.assertError(this.file(source), XtendPackage.Literals.XTEND_FIELD, org.eclipse.xtext.xbase.validation.IssueCodes.INCOMPATIBLE_RETURN_TYPE, 
+      this._validationTestHelper.assertError(this.file(source), XtendPackage.Literals.XTEND_FIELD, IssueCodes.INCOMPATIBLE_RETURN_TYPE, 
         source.indexOf("int"), "int".length(), 
         "incompatible", "getFoo");
     } catch (Throwable _e) {
@@ -359,7 +359,10 @@ public class AccessorsCompilerTest extends AbstractXtendCompilerTest {
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
-      this._validationTestHelper.assertError(this.file(_builder.toString()), XtendPackage.Literals.XTEND_FIELD, org.eclipse.xtext.xbase.validation.IssueCodes.INCOMPATIBLE_RETURN_TYPE, "setFoo(String)", "incompatible");
+      final String source = _builder.toString();
+      this._validationTestHelper.assertError(this.file(source), XtendPackage.Literals.XTEND_FIELD, IssueCodes.INCOMPATIBLE_RETURN_TYPE, 
+        source.lastIndexOf("String"), "String".length(), 
+        "setFoo(String)", "incompatible");
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -425,12 +428,12 @@ public class AccessorsCompilerTest extends AbstractXtendCompilerTest {
             Assert.assertTrue(Modifier.isPublic(it_1.getDeclaredMethod("setB", int.class).getModifiers()));
             final Function1<Method, Boolean> _function_2 = (Method it_2) -> {
               String _name = it_2.getName();
-              return Boolean.valueOf(Objects.equal(_name, "getC"));
+              return Boolean.valueOf(Objects.equals(_name, "getC"));
             };
             Assert.assertFalse(IterableExtensions.<Method>exists(((Iterable<Method>)Conversions.doWrapArray(it_1.getDeclaredMethods())), _function_2));
             final Function1<Method, Boolean> _function_3 = (Method it_2) -> {
               String _name = it_2.getName();
-              return Boolean.valueOf(Objects.equal(_name, "setC"));
+              return Boolean.valueOf(Objects.equals(_name, "setC"));
             };
             Assert.assertFalse(IterableExtensions.<Method>exists(((Iterable<Method>)Conversions.doWrapArray(it_1.getDeclaredMethods())), _function_3));
           } catch (Throwable _e) {
@@ -476,12 +479,12 @@ public class AccessorsCompilerTest extends AbstractXtendCompilerTest {
             Assert.assertTrue(Modifier.isPublic(it_1.getDeclaredMethod("setB", int.class).getModifiers()));
             final Function1<Method, Boolean> _function_2 = (Method it_2) -> {
               String _name = it_2.getName();
-              return Boolean.valueOf(Objects.equal(_name, "getC"));
+              return Boolean.valueOf(Objects.equals(_name, "getC"));
             };
             Assert.assertFalse(IterableExtensions.<Method>exists(((Iterable<Method>)Conversions.doWrapArray(it_1.getDeclaredMethods())), _function_2));
             final Function1<Method, Boolean> _function_3 = (Method it_2) -> {
               String _name = it_2.getName();
-              return Boolean.valueOf(Objects.equal(_name, "setC"));
+              return Boolean.valueOf(Objects.equals(_name, "setC"));
             };
             Assert.assertFalse(IterableExtensions.<Method>exists(((Iterable<Method>)Conversions.doWrapArray(it_1.getDeclaredMethods())), _function_3));
           } catch (Throwable _e) {
@@ -524,7 +527,7 @@ public class AccessorsCompilerTest extends AbstractXtendCompilerTest {
             Assert.assertTrue(Modifier.isProtected(it_1.getDeclaredMethod("getA").getModifiers()));
             final Function1<Method, Boolean> _function_2 = (Method it_2) -> {
               String _name = it_2.getName();
-              return Boolean.valueOf(Objects.equal(_name, "setA"));
+              return Boolean.valueOf(Objects.equals(_name, "setA"));
             };
             Assert.assertFalse(IterableExtensions.<Method>exists(((Iterable<Method>)Conversions.doWrapArray(it_1.getDeclaredMethods())), _function_2));
           } catch (Throwable _e) {

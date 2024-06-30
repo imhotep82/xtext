@@ -3,7 +3,7 @@
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  */
 package org.eclipse.xtext.xbase.tests.compiler;
@@ -16,7 +16,6 @@ import org.eclipse.xtext.xbase.compiler.GeneratorConfig;
 import org.eclipse.xtext.xbase.compiler.GeneratorConfigProvider;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.testing.CompilationTestHelper;
-import org.eclipse.xtext.xbase.testing.CompilationTestHelper.Result;
 import org.eclipse.xtext.xbase.testing.TemporaryFolder;
 import org.eclipse.xtext.xbase.tests.jvmmodel.AbstractJvmModelTest;
 import org.junit.Assert;
@@ -53,9 +52,9 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 				"		default: \"bar\"\n" +
 				"	}\n" +
 				"}\n";
-		compilationTestHelper.compile(source, (CompilationTestHelper.Result it) -> {
+		compilationTestHelper.compile(source, it -> {
 			String expectation =
-					"import com.google.common.base.Objects;\n" +
+					"import java.util.Objects;\n" +
 					"\n" +
 					"@SuppressWarnings(\"all\")\n" +
 					"public class Test {\n" +
@@ -65,7 +64,7 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 					"      final String s_1 = \"\";\n" +
 					"      String _switchResult = null;\n" +
 					"      boolean _matched = false;\n" +
-					"      if (Objects.equal(s_1, \"foo\")) {\n" +
+					"      if (Objects.equals(s_1, \"foo\")) {\n" +
 					"        _matched=true;\n" +
 					"        _switchResult = \"foo\";\n" +
 					"      }\n" +
@@ -93,7 +92,7 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 				"		default: \"bar\"\n" +
 				"	}\n" +
 				"}\n";
-		compilationTestHelper.compile(source, (CompilationTestHelper.Result it) -> {
+		compilationTestHelper.compile(source, it -> {
 			String expectation =
 					"@SuppressWarnings(\"all\")\n" +
 					"public class Test {\n" +
@@ -131,7 +130,7 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 				"{\n" +
 				"	val f = [ int i | i + 1 ]\n" +
 				"}\n";
-		compilationTestHelper.compile(source, (CompilationTestHelper.Result it) -> {
+		compilationTestHelper.compile(source, it -> {
 			String expectation =
 					"import org.eclipse.xtext.xbase.lib.Functions.Function1;\n" +
 					"\n" +
@@ -160,7 +159,7 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 				"{\n" +
 				"	val f = [ int i | i + 1 ]\n" +
 				"}\n";
-		compilationTestHelper.compile(source, (CompilationTestHelper.Result it) -> {
+		compilationTestHelper.compile(source, it -> {
 			String expectation =
 					"import org.eclipse.xtext.xbase.lib.Functions.Function1;\n" +
 					"\n" +
@@ -192,7 +191,7 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 		GeneratorConfig generatorConfig = new GeneratorConfig();
 		generatorConfig.setGenerateSyntheticSuppressWarnings(false);
 		generatorConfigProvider.install(resourceSet, generatorConfig);
-		compilationTestHelper.compile(resourceSet, (Result it) -> {
+		compilationTestHelper.compile(resourceSet, it -> {
 			String expectation =
 					"import org.eclipse.xtext.xbase.lib.Functions.Function1;\n" +
 					"\n" +
@@ -208,4 +207,37 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 			Assert.assertEquals(expectation, Strings.toUnixLineSeparator(it.getSingleGeneratedCode()));
 		});
 	}
+
+	@Test
+	public void testAssertNoErrorsWithErrors() throws Exception {
+		String source = "{var int i = true; }";
+		compilationTestHelper.compile(source, it -> {
+			var thrown = assertThrows(AssertionError.class, () -> it.assertNoErrors());
+			assertTrue(thrown.getMessage(),
+					thrown.getMessage().contains("cannot convert from boolean to int"));
+		});
+	}
+
+	@Test
+	public void testAssertNoErrors() throws Exception {
+		String source = "{ var int i = 0; null }";
+		compilationTestHelper.compile(source, it -> it.assertNoErrors());
+	}
+
+	@Test
+	public void testAssertNoIssuesWithWarnings() throws Exception {
+		String source = "{var int i = 0; null }";
+		compilationTestHelper.compile(source, it -> {
+			var thrown = assertThrows(AssertionError.class, () -> it.assertNoIssues());
+			assertTrue(thrown.getMessage(),
+					thrown.getMessage().contains("is not used"));
+		});
+	}
+
+	@Test
+	public void testAssertNoIssues() throws Exception {
+		String source = "{ \"a string\" }";
+		compilationTestHelper.compile(source, it -> it.assertNoIssues());
+	}
+
 }

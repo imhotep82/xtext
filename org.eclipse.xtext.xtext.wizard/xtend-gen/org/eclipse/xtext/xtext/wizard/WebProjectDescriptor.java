@@ -8,9 +8,9 @@
  */
 package org.eclipse.xtext.xtext.wizard;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -25,7 +25,7 @@ public class WebProjectDescriptor extends ProjectDescriptor {
 
   private static final String JQUERY_VERSION = "3.6.0";
 
-  private static final String JETTY_VERSION = "11.0.20";
+  private static final String JETTY_VERSION = "11.0.21";
 
   private static final String SLF4J_VERSION = "2.0.5";
 
@@ -49,13 +49,13 @@ public class WebProjectDescriptor extends ProjectDescriptor {
   @Override
   public boolean isPartOfGradleBuild() {
     BuildSystem _preferredBuildSystem = this.getConfig().getPreferredBuildSystem();
-    return Objects.equal(_preferredBuildSystem, BuildSystem.GRADLE);
+    return Objects.equals(_preferredBuildSystem, BuildSystem.GRADLE);
   }
 
   @Override
   public boolean isPartOfMavenBuild() {
     BuildSystem _preferredBuildSystem = this.getConfig().getPreferredBuildSystem();
-    return Objects.equal(_preferredBuildSystem, BuildSystem.MAVEN);
+    return Objects.equals(_preferredBuildSystem, BuildSystem.MAVEN);
   }
 
   @Override
@@ -146,7 +146,7 @@ public class WebProjectDescriptor extends ProjectDescriptor {
       _builder.newLine();
       {
         SourceLayout _sourceLayout = this.getConfig().getSourceLayout();
-        boolean _equals = Objects.equal(_sourceLayout, SourceLayout.PLAIN);
+        boolean _equals = Objects.equals(_sourceLayout, SourceLayout.PLAIN);
         if (_equals) {
           _builder.append("\t");
           _builder.append("<sourceDirectory>");

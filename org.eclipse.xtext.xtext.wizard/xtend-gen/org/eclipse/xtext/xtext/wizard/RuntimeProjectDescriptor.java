@@ -8,12 +8,12 @@
  */
 package org.eclipse.xtext.xtext.wizard;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -77,7 +77,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 
   @Override
   public boolean isEclipsePluginProject() {
-    return (Objects.equal(this.getConfig().getPreferredBuildSystem(), BuildSystem.NONE) || this.getConfig().getUiProject().isEnabled());
+    return (Objects.equals(this.getConfig().getPreferredBuildSystem(), BuildSystem.NONE) || this.getConfig().getUiProject().isEnabled());
   }
 
   @Override
@@ -169,7 +169,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
     if (_isFromExistingEcoreModels) {
       final Function1<EPackageInfo, Boolean> _function = (EPackageInfo it) -> {
         String _fileExtension = it.getGenmodelURI().fileExtension();
-        return Boolean.valueOf(Objects.equal(_fileExtension, "xcore"));
+        return Boolean.valueOf(Objects.equals(_fileExtension, "xcore"));
       };
       boolean _exists = IterableExtensions.<EPackageInfo>exists(this.getConfig().getEcore2Xtext().getEPackageInfos(), _function);
       if (_exists) {
@@ -409,7 +409,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
     }
     {
       SourceLayout _sourceLayout = this.getConfig().getSourceLayout();
-      boolean _equals = Objects.equal(_sourceLayout, SourceLayout.MAVEN);
+      boolean _equals = Objects.equals(_sourceLayout, SourceLayout.MAVEN);
       if (_equals) {
         _builder.append("\t\t\t\t");
         _builder.append("mavenLayout = true");
@@ -529,6 +529,14 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
     _builder.append("\t\t\t\t");
     _builder.append("// composedCheck = \"org.eclipse.xtext.validation.NamesAreUniqueValidator\"");
     _builder.newLine();
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("// Enables several checks on the inferred Jvm model for Xbase languages concerning Java inheritance relations");
+    _builder.newLine();
+    _builder.append("\t\t\t\t");
+    _builder.append("// composedCheck = \"org.eclipse.xtext.xbase.validation.JvmGenericTypeValidator\"");
+    _builder.newLine();
+    _builder.newLine();
     _builder.append("\t\t\t\t");
     _builder.append("// Generates checks for @Deprecated grammar annotations, an IssueProvider and a corresponding PropertyPage");
     _builder.newLine();
@@ -549,7 +557,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
     _builder.newLine();
     {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals_1 = Objects.equal(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals_1 = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
       if (_equals_1) {
         _builder.append("\t\t\t");
         _builder.append("junitSupport = {");
@@ -697,7 +705,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
       _builder.append("<build>");
       _builder.newLine();
       {
-        if (((!this.isEclipsePluginProject()) && Objects.equal(this.getConfig().getSourceLayout(), SourceLayout.PLAIN))) {
+        if (((!this.isEclipsePluginProject()) && Objects.equals(this.getConfig().getSourceLayout(), SourceLayout.PLAIN))) {
           _builder.append("\t");
           _builder.append("<sourceDirectory>");
           String _sourceFolder = this.sourceFolder(Outlet.MAIN_JAVA);
@@ -1598,7 +1606,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
           _builder_1.newLine();
         } else {
           BuildSystem _preferredBuildSystem = this.getConfig().getPreferredBuildSystem();
-          boolean _equals = Objects.equal(_preferredBuildSystem, BuildSystem.MAVEN);
+          boolean _equals = Objects.equals(_preferredBuildSystem, BuildSystem.MAVEN);
           if (_equals) {
             _builder_1.append("<launchConfiguration type=\"org.eclipse.m2e.Maven2LaunchConfigurationType\">");
             _builder_1.newLine();
@@ -1641,7 +1649,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
             _builder_1.newLine();
           } else {
             BuildSystem _preferredBuildSystem_1 = this.getConfig().getPreferredBuildSystem();
-            boolean _equals_1 = Objects.equal(_preferredBuildSystem_1, BuildSystem.GRADLE);
+            boolean _equals_1 = Objects.equals(_preferredBuildSystem_1, BuildSystem.GRADLE);
             if (_equals_1) {
               _builder_1.append("<launchConfiguration type=\"org.eclipse.buildship.core.launch.runconfiguration\">");
               _builder_1.newLine();

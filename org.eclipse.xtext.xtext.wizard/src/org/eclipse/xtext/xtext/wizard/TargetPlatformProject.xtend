@@ -62,7 +62,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 					<unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
 					«IF config.javaVersion.isAtLeast(JavaVersion.JAVA17)»
-						<repository location="https://download.eclipse.org/releases/2024-06"/>
+						<repository location="https://download.eclipse.org/releases/2024-09"/>
 					«ELSE»
 						<repository location="https://download.eclipse.org/releases/2023-03"/>
 					«ENDIF»
@@ -86,7 +86,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					«ENDIF»
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-					<unit id="com.google.gson" version="2.10.1"/>
+					<unit id="com.google.gson" version="2.11.0"/>
 					<unit id="com.google.inject" version="7.0.0"/>
 					<unit id="jakarta.inject.jakarta.inject-api" version="2.0.1"/>
 					<unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
@@ -109,8 +109,8 @@ class TargetPlatformProject extends ProjectDescriptor {
 						<unit id="org.opentest4j" version="0.0.0"/>
 					«ENDIF»
 					<unit id="org.objectweb.asm" version="9.7.0"/>
-					<unit id="io.github.classgraph.classgraph" version="4.8.168"/>
-					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-06"/>
+					<unit id="io.github.classgraph.classgraph" version="4.8.174"/>
+					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09"/>
 				</location>
 			</locations>
 		</target>
