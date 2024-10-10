@@ -6,7 +6,7 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'TARGET_PLATFORM', choices: ['r202203', 'r202206', 'r202209', 'r202212', 'r202303', 'r202306', 'r202309', 'r202312', 'r202403', 'r202406', 'latest'], description: 'Which Target Platform should be used?')
+    choice(name: 'TARGET_PLATFORM', choices: ['r202203', 'r202206', 'r202209', 'r202212', 'r202303', 'r202306', 'r202309', 'r202312', 'r202403', 'r202406', 'r202409', 'latest'], description: 'Which Target Platform should be used?')
     // see https://wiki.eclipse.org/Jenkins#JDK
     choice(name: 'JDK_VERSION', choices: [ '11', '17', '21' ], description: 'Which JDK version should be used?')
   }
@@ -25,8 +25,8 @@ pipeline {
   }
 
   tools {
-     jdk "temurin-jdk11-latest"
-     jdk "temurin-jdk17-latest"
+     // the Java version we use to run the build
+     // we force the effective JDK version for compilation/testing through Maven toolchains
      jdk "temurin-jdk21-latest"
   }
 
@@ -58,6 +58,7 @@ pipeline {
     stage('Maven/Tycho Build & Test') {
       environment {
         MAVEN_OPTS = "-Xmx1500m"
+        // set all Java versions needed by our toolchains.xml
         JAVA_HOME_11_X64 = tool(type:'jdk', name:'temurin-jdk11-latest')
         JAVA_HOME_17_X64 = tool(type:'jdk', name:'temurin-jdk17-latest')
         JAVA_HOME_21_X64 = tool(type:'jdk', name:'temurin-jdk21-latest')
@@ -67,6 +68,7 @@ pipeline {
           sh """
             ./full-build.sh --tp=${selectedTargetPlatform()} \
               ${javaVersion() == 11 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-11' : ''} \
+              ${javaVersion() == 17 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-17' : ''} \
               ${javaVersion() == 21 ? '-Pstrict-jdk-21' : ''}
           """
         }
@@ -152,7 +154,7 @@ def isTriggeredByUpstream() {
 def eclipseVersion() {
   def targetPlatform = selectedTargetPlatform()
   if (targetPlatform == 'latest') {
-    return "4.33"
+    return "4.34"
   } else {
     def baseDate = java.time.LocalDate.parse("2018-06-01") // 4.8 Photon
     def df = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")

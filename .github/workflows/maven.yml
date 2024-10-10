@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-    if: github.event_name != 'pull_request' || github.event.pull_request.base.repo.clone_url != github.event.pull_request.head.repo.clone_url
     strategy:
       matrix: # 'macos-14' is arm64
         os: ['ubuntu-22.04', 'macos-14', 'windows-2022']
@@ -50,23 +49,27 @@ jobs:
       - name: Build and test
         uses: coactions/setup-xvfb@v1.0.1
         with: 
-          run: ./mvnw clean verify "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}" -PuseJenkinsSnapshots ${{ matrix.additional-maven-args }} -f org.eclipse.xtext.full.releng
+          run: >
+            ./mvnw "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}"
+            clean verify
+            -f org.eclipse.xtext.full.releng
+            -B -fae -PuseJenkinsSnapshots
+            ${{ matrix.additional-maven-args }}
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v4
-        if: ${{ failure() || cancelled() }}
+        if: always()
         with:
-          name: test-results-${{ runner.os }}
+          name: test-results-${{ runner.os }}-${{ matrix.java }}
           path: '**/*.tests/target/surefire-reports'
       - name: Archive Logs
         uses: actions/upload-artifact@v4
         if: ${{ failure() || cancelled() }}
         with:
-          name: logs-${{ runner.os }}
+          name: logs-${{ runner.os }}-${{ matrix.java }}
           path: '**/*.tests/target/**/*.log'
 
   build-maven-artifacts:
-    if: github.event_name != 'pull_request' || github.event.pull_request.base.repo.clone_url != github.event.pull_request.head.repo.clone_url
     runs-on: ubuntu-22.04
 
     steps:
@@ -89,17 +92,31 @@ jobs:
         run: echo "MAVEN_WRAPPER_HOME=$(./mvnw --version | grep "Maven home:" | cut -c 13-)" >> "$GITHUB_ENV"
 
       - name: Build Maven artifacts
-        run: ./mvnw clean verify "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}" -PuseJenkinsSnapshots -Pstrict-jdk-21 -f org.eclipse.xtext.maven.releng
+        run: >
+          ./mvnw "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}"
+          clean verify
+          -f org.eclipse.xtext.maven.releng
+          -B -fae -PuseJenkinsSnapshots
+          -Pstrict-jdk-21
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v4
-        if: ${{ failure() || cancelled() }}
+        if: always()
         with:
-          name: test-results-${{ runner.os }}
+          name: build-maven-artifacts-test-results-${{ runner.os }}
           path: '**/target/surefire-reports'
       - name: Archive Logs
         uses: actions/upload-artifact@v4
         if: ${{ failure() || cancelled() }}
         with:
-          name: logs-${{ runner.os }}
+          name: build-maven-artifacts-logs-${{ runner.os }}
           path: '**/target/**/*.log'
+  event_file:
+    name: "Upload Event File"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Upload
+      uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
+      with:
+        name: Event File
+        path: ${{ github.event_path }}
