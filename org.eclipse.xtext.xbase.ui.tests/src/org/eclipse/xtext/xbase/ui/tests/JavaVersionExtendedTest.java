@@ -26,18 +26,11 @@ public class JavaVersionExtendedTest {
 		assertEquals(ClassFileConstants.JDK10, JavaVersion.JAVA10.toJdtClassFileConstant());
 		assertEquals(ClassFileConstants.JDK11, JavaVersion.JAVA11.toJdtClassFileConstant());
 		assertEquals(ClassFileConstants.JDK17, JavaVersion.JAVA17.toJdtClassFileConstant());
-		 assertEquals(ClassFileConstants.JDK21, JavaVersion.JAVA21.toJdtClassFileConstant());
+		assertEquals(ClassFileConstants.JDK21, JavaVersion.JAVA21.toJdtClassFileConstant());
 		// until we use the newer JDT as minimal requirement, we cannot refer to ClassFileConstants.JDK25
 		// or the test won't compile with older target platforms
 		// assertEquals(ClassFileConstants.JDK25, JavaVersion.JAVA25.toJdtClassFileConstant());
 		assertEquals(4521984, JavaVersion.JAVA25.toJdtClassFileConstant());
-//		try {
-//			long value = ClassFileConstants.class.getField("JDK17").getLong(null);
-//			assertEquals(value, JavaVersion.JAVA17.toJdtClassFileConstant());
-//		} catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException | SecurityException e) {
-//			System.err.println("ooops");
-//			// ok
-//		}
 	}
 	
 	@SuppressWarnings("deprecation")
