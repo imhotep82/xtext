@@ -6,7 +6,7 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'TARGET_PLATFORM', choices: ['r202403', 'r202406', 'r202409', 'r202412', 'r202503', 'r202506', 'r202509', 'r202512', 'r202603', 'latest'], description: 'Which Target Platform should be used?')
+    choice(name: 'TARGET_PLATFORM', choices: ['r202512', 'r202603', 'latest'], description: 'Which Target Platform should be used?')
     // see https://wiki.eclipse.org/Jenkins#JDK
     choice(name: 'JDK_VERSION', choices: [ '21', '25' ], description: 'Which JDK version should be used?')
   }
@@ -182,8 +182,8 @@ def selectedTargetPlatform() {
         println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
         return 'latest'
     } else if (isTriggeredByUpstream() && javaVersion>=21) {
-        println("Choosing 'r2024-03' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'r2024-03'
+        println("Choosing 'r2025-12' target since this build was triggered by upstream with Java ${javaVersion}")
+        return 'r2025-12'
     } else {
         return tp
     }
