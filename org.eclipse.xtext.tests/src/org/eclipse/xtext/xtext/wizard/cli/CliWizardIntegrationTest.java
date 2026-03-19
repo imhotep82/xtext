@@ -139,7 +139,7 @@ public class CliWizardIntegrationTest {
 				project.getIdeProject().setEnabled(true);
 				project.getWebProject().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
-				project.setBaseName("mavenTychoJUnit5");
+				project.setBaseName("mavenTychoJUnit6");
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
 				project.setSourceLayout(SourceLayout.PLAIN);
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
@@ -148,7 +148,7 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
 				project.getWebProject().setEnabled(true);
-				project.setJunitVersion(JUnitVersion.JUNIT_5);
+				project.setJunitVersion(JUnitVersion.JUNIT_6);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("gradle");
 				project.setPreferredBuildSystem(BuildSystem.GRADLE);
@@ -157,7 +157,7 @@ public class CliWizardIntegrationTest {
 				project.getRuntimeProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
 				project.getWebProject().setEnabled(true);
-				project.setJunitVersion(JUnitVersion.JUNIT_5);
+				project.setJunitVersion(JUnitVersion.JUNIT_6);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("eclipsePlugin");
 				project.setPreferredBuildSystem(BuildSystem.NONE);

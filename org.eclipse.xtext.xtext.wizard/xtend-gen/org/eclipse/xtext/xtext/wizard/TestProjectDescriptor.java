@@ -94,20 +94,20 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
       deps.add(_doubleArrow);
     }
     JUnitVersion _junitVersion_1 = this.getConfig().getJunitVersion();
-    boolean _equals_1 = Objects.equals(_junitVersion_1, JUnitVersion.JUNIT_5);
+    boolean _equals_1 = Objects.equals(_junitVersion_1, JUnitVersion.JUNIT_6);
     if (_equals_1) {
       ExternalDependency _externalDependency_1 = new ExternalDependency();
       final Procedure1<ExternalDependency> _function_1 = (ExternalDependency it) -> {
         ExternalDependency.P2Coordinates _p2 = it.getP2();
         LinkedHashSet<String> _newLinkedHashSet = Sets.<String>newLinkedHashSet();
         final Procedure1<LinkedHashSet<String>> _function_2 = (LinkedHashSet<String> it_1) -> {
-          it_1.add("org.junit.jupiter.api;version=\"[5.1.0,6.0.0)\"");
-          it_1.add("org.junit.jupiter.api.extension;version=\"[5.1.0,6.0.0)\"");
+          it_1.add("org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\"");
+          it_1.add("org.junit.jupiter.api.extension;version=\"[6.0.0,7.0.0)\"");
         };
         LinkedHashSet<String> _doubleArrow_1 = ObjectExtensions.<LinkedHashSet<String>>operator_doubleArrow(_newLinkedHashSet, _function_2);
         _p2.setPackages(_doubleArrow_1);
         ExternalDependency.P2Coordinates _p2_1 = it.getP2();
-        _p2_1.setVersion("[5.1.0,6.0.0)");
+        _p2_1.setVersion("[6.0.0,7.0.0)");
         ExternalDependency.MavenCoordinates _maven = it.getMaven();
         _maven.setGroupId("org.junit.jupiter");
         ExternalDependency.MavenCoordinates _maven_1 = it.getMaven();
@@ -397,7 +397,7 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
     GradleBuildFile _buildGradle = super.buildGradle();
     final Procedure1<GradleBuildFile> _function = (GradleBuildFile it) -> {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
       if (_equals) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("test {");

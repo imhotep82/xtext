@@ -58,13 +58,13 @@ abstract class TestProjectDescriptor extends ProjectDescriptor {
 				maven.scope = Scope.TESTCOMPILE
 			]
 		}
-		if (config.junitVersion == JUnitVersion.JUNIT_5) {
+		if (config.junitVersion == JUnitVersion.JUNIT_6) {
 			deps += new ExternalDependency()=>[
 				p2.packages = Sets.newLinkedHashSet => [
-					it += 'org.junit.jupiter.api;version="[5.1.0,6.0.0)"'
-					it += 'org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)"'
+					it += 'org.junit.jupiter.api;version="[6.0.0,7.0.0)"'
+					it += 'org.junit.jupiter.api.extension;version="[6.0.0,7.0.0)"'
 				]
-				p2.version = "[5.1.0,6.0.0)"
+				p2.version = "[6.0.0,7.0.0)"
 				maven.groupId = "org.junit.jupiter"
 				maven.artifactId = "junit-jupiter-api"
 				maven.scope = Scope.TESTCOMPILE
@@ -158,7 +158,7 @@ abstract class TestProjectDescriptor extends ProjectDescriptor {
 	
 	override buildGradle() {
 		super.buildGradle => [
-			if (config.junitVersion == JUnitVersion.JUNIT_5) {
+			if (config.junitVersion == JUnitVersion.JUNIT_6) {
 				additionalContent = '''
 					test {
 						useJUnitPlatform()

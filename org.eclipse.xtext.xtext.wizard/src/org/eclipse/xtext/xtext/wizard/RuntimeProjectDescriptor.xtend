@@ -263,9 +263,9 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 						generator = {
 							generateXtendStub = true
 						}
-						«IF config.junitVersion == JUnitVersion.JUNIT_5»
+						«IF config.junitVersion == JUnitVersion.JUNIT_6»
 							junitSupport = {
-								junitVersion = "5"
+								junitVersion = "6"
 							}
 						«ENDIF»
 					}
