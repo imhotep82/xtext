@@ -11,6 +11,7 @@ package org.eclipse.xtext.ide.editor.quickfix;
 import java.util.List;
 
 import org.eclipse.lsp4j.Diagnostic;
+import org.eclipse.lsp4j.WorkspaceEdit;
 import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2.Options;
 
 import com.google.common.annotations.Beta;
@@ -56,4 +57,21 @@ public interface IQuickFixProvider {
 	default boolean handlesDiagnostic(Diagnostic diagnostic) {
 		return true;
 	}
+	
+	/**
+	 * Applies the given resolution and returns the resulting workspace edit
+	 * @param resolutionId Unique resolution retrieved from calling {@link #cacheResolution(DiagnosticResolution)}
+	 * 
+	 * @since 2.43
+	 */ 
+	WorkspaceEdit applyCachedResolution(DiagnosticResolutionInfo resolutionId);
+
+
+	/**
+	 * Creates a pending diagnostic resolution without applying the workspace edit
+	 * @param resolution A resolution for a quickfix
+	 * 
+	 * @since 2.43
+	 */
+	String cacheResolution(DiagnosticResolution resolution);
 }
