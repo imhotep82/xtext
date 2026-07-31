@@ -336,8 +336,7 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
-      label="Tools"
-      profileProperties="">
+      label="Tools">
     <requirement
         name="org.eclipse.m2e.feature.feature.group"/>
   </setupTask>
@@ -345,8 +344,7 @@
       xsi:type="setup.p2:P2Task"
       id="p2.swtbot"
       label="SWTBot"
-      licenseConfirmationDisabled="true"
-      profileProperties="">
+      licenseConfirmationDisabled="true">
     <requirement
         name="org.eclipse.swtbot.eclipse.feature.group"/>
     <requirement
