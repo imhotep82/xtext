@@ -314,7 +314,8 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
-      label="Eclipse">
+      label="Eclipse"
+      profileProperties="org.eclipse.update.install.sources=false">
     <requirement
         name="org.eclipse.emf.sdk.feature.group"/>
     <requirement
